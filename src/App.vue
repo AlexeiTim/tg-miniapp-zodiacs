@@ -4,6 +4,10 @@ import { useHoroscope } from './composables/useHoroscope'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { HoroscopeSign } from './types/horoscope'
 
+const startX = ref(0)
+const endX = ref(0)
+const threshold = 50 // Минимальное расстояние для определения свайпа вправо
+
 const { horocope, isLoading, error, getHoroscope, unsetHoroscope } = useHoroscope()
 const { initDataUnsafe, initData } = useWebApp()
 const data = useWebAppNavigation()
@@ -31,6 +35,18 @@ function testHandle() {
   })
 }
 
+function startTouch(event: TouchEvent) {
+  startX.value = event.touches[0].clientX
+}
+
+function endTouch(event: TouchEvent) {
+  endX.value = event.changedTouches[0].clientX
+
+  if (startX.value - endX.value > threshold) {
+    unsetHoroscope() // Закрываем описание, если свайп вправо
+  }
+}
+
 // Reactivity for user info
 const userInfo = ref(null)
 </script>
@@ -54,11 +70,11 @@ const userInfo = ref(null)
         {{ zodiac.dateRange }}
       </button>
     </template>
-    <div>
+    <div @touchstart="startTouch" @touchend="endTouch">
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-if="horocope">
-        <BackButton @click="unsetHoroscope">Назад</BackButton>
+        <BackButton @click="unsetHoroscope" text="Назад" />
         <div>Horoscope: {{ horocope.horoscope }}</div>
       </div>
     </div>
