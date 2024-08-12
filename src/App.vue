@@ -8,7 +8,9 @@ const startX = ref(0)
 const endX = ref(0)
 const threshold = 50 // Минимальное расстояние для определения свайпа вправо
 
-const { horocope, isLoading, error, getHoroscope, unsetHoroscope } = useHoroscope()
+const { horocope, isLoading, error, getHoroscope, setHoroscope, unsetHoroscope } = useHoroscope()
+const horoscopeName = ref('')
+
 const { initDataUnsafe, initData } = useWebApp()
 const data = useWebAppNavigation()
 const zodiacs = ref<{ name: HoroscopeSign; dateRange: string }[]>([
@@ -26,18 +28,34 @@ const zodiacs = ref<{ name: HoroscopeSign; dateRange: string }[]>([
   { name: 'pisces', dateRange: 'February 19 - March 20' } // Рыбы
 ])
 
-const isMobile = ref(window.innerWidth <= 768)
-
-const lang = ref(initDataUnsafe.language_code === 'ru' ? 'ru' : 'en')
-
-function toggleLang() {
-  lang.value = lang.value === 'ru' ? 'en' : 'ru'
-}
-function testHandle() {
+function handleSelectZodica(zodiac) {
+  horoscopeName.value = zodiac.name
   getHoroscope({
-    sign: 'aries',
+    sign: zodiac.name,
     language: lang.value === 'ru' ? 'original' : 'translated'
   })
+}
+
+const isMobile = ref(window.innerWidth <= 768)
+
+const lang = ref(initDataUnsafe.user.language_code === 'ru' ? 'ru' : 'en')
+const testData = ref(null)
+function toggleLang() {
+  lang.value = lang.value === 'ru' ? 'en' : 'ru'
+  if (horoscopeName.value) {
+    const data = {
+      sign: horoscopeName.value,
+      language: lang.value === 'ru' ? 'original' : 'translated'
+    }
+    testData.value = data
+    getHoroscope(data)
+  }
+}
+
+function goBack() {
+  horoscopeName.value = ''
+  unsetHoroscope()
+  testData.value = null
 }
 
 function startTouch(event: TouchEvent) {
@@ -57,30 +75,22 @@ const userInfo = ref(null)
 </script>
 
 <template>
-  <div class="max-size-fullscreen">
+  <div @touchstart="startTouch" @touchend="endTouch" class="max-size-fullscreen">
     {{ startX }} - {{ endX }}
+    {{ initDataUnsafe.user.language_code }}
     <button @click="toggleLang">{{ lang }}</button>
-    <template v-if="!horocope">
+    <template v-if="!horoscopeName">
       <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
-      <button
-        v-for="zodiac in zodiacs"
-        :key="zodiac.name"
-        @click="
-          getHoroscope({
-            sign: zodiac.name,
-            language: lang === 'ru' ? 'original' : 'translated'
-          })
-        "
-      >
+      <button v-for="zodiac in zodiacs" :key="zodiac.name" @click="handleSelectZodica(zodiac)">
         {{ zodiac.name }}
         {{ zodiac.dateRange }}
       </button>
     </template>
-    <div @touchstart="startTouch" @touchend="endTouch">
+    <div>
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-if="horocope">
-        <BackButton @click="unsetHoroscope" text="Назад" />
+        <BackButton @click="goBack" text="Назад" />
         <div>Horoscope: {{ horocope.horoscope }}</div>
       </div>
     </div>
