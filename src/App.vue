@@ -66,7 +66,7 @@ function endTouch(event: TouchEvent) {
   endX.value = event.changedTouches[0].clientX
 
   if (startX.value - endX.value > threshold) {
-    if (isMobile.value) unsetHoroscope() // Закрываем описание, если свайп вправо
+    if (isMobile.value) goBack() // Закрываем описание, если свайп вправо
   }
 }
 
