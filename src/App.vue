@@ -26,6 +26,8 @@ const zodiacs = ref<{ name: HoroscopeSign; dateRange: string }[]>([
   { name: 'pisces', dateRange: 'February 19 - March 20' } // Рыбы
 ])
 
+const isMobile = ref(window.innerWidth <= 768)
+
 const lang = ref(initDataUnsafe.language_code === 'ru' ? 'ru' : 'en')
 
 function testHandle() {
@@ -43,7 +45,7 @@ function endTouch(event: TouchEvent) {
   endX.value = event.changedTouches[0].clientX
 
   if (startX.value - endX.value > threshold) {
-    unsetHoroscope() // Закрываем описание, если свайп вправо
+    if (isMobile.value) unsetHoroscope() // Закрываем описание, если свайп вправо
   }
 }
 
