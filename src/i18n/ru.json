@@ -1,0 +1,53 @@
+{
+  "zodiaks": {
+    "aries": {
+      "name": "Овен",
+      "dateRange": "Март 21 - Апрель 19"
+    },
+    "taurus": {
+      "name": "Телец",
+      "dateRange": "Апрель 20 - Май 20"
+    },
+    "gemini": {
+      "name": "Близнецы",
+      "dateRange": "Май 21 - Июнь 20"
+    },
+    "cancer": {
+      "name": "Рак",
+      "dateRange": "Июнь 21 - Июль 22"
+    },
+    "leo": {
+      "name": "Лев",
+      "dateRange": "Июль 23 - Август 22"
+    },
+    "virgo": {
+      "name": "Дева",
+      "dateRange": "Август 23 - Сентябрь 22"
+    },
+    "libra": {
+      "name": "Весы",
+      "dateRange": "Сентябрь 23 - Октябрь 22"
+    },
+    "scorpio": {
+      "name": "Скорпион",
+      "dateRange": "Октябрь 23 - Ноябрь 21"
+    },
+    "sagittarius": {
+      "name": "Стрелец",
+      "dateRange": "Ноябрь 22 - Декабрь 21"
+    },
+    "capricorn": {
+      "name": "Козерог",
+      "dateRange": "Декабрь 22 - Январь 19"
+    },
+    "aquarius": {
+      "name": "Водолей",
+      "dateRange": "Январь 20 - Февраль 18"
+    },
+    "pisces": {
+      "name": "Рыбы",
+      "dateRange": "Февраль 19 - Март 20"
+    }
+  },
+  "switchLang": "Сменить язык на английский"
+}

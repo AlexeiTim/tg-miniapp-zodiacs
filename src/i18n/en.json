@@ -1,0 +1,53 @@
+{
+  "zodiaks": {
+    "aries": {
+      "name": "Aries",
+      "dateRange": "March 21 - April 19"
+    },
+    "taurus": {
+      "name": "Taurus",
+      "dateRange": "April 20 - May 20"
+    },
+    "gemini": {
+      "name": "Gemini",
+      "dateRange": "May 21 - June 20"
+    },
+    "cancer": {
+      "name": "Cancer",
+      "dateRange": "June 21 - July 22"
+    },
+    "leo": {
+      "name": "Leo",
+      "dateRange": "July 23 - August 22"
+    },
+    "virgo": {
+      "name": "Virgo",
+      "dateRange": "August 23 - September 22"
+    },
+    "libra": {
+      "name": "Libra",
+      "dateRange": "September 23 - October 22"
+    },
+    "scorpio": {
+      "name": "Scorpio",
+      "dateRange": "October 23 - November 21"
+    },
+    "sagittarius": {
+      "name": "Sagittarius",
+      "dateRange": "November 22 - December 21"
+    },
+    "capricorn": {
+      "name": "Capricorn",
+      "dateRange": "December 22 - January 19"
+    },
+    "aquarius": {
+      "name": "Aquarius",
+      "dateRange": "January 20 - February 18"
+    },
+    "pisces": {
+      "name": "Pisces",
+      "dateRange": "February 19 - March 20"
+    }
+  },
+  "switchLang": "Switch language to Russian"
+}
