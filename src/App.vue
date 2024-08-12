@@ -75,7 +75,7 @@ const userInfo = ref(null)
 </script>
 
 <template>
-  <div @touchstart="startTouch" @touchend="endTouch" class="min-h-screen min-w-screen">
+  <div @touchstart="startTouch" @touchend="endTouch" class="screen">
     {{ startX }} - {{ endX }}
     {{ initDataUnsafe.user.language_code }}
     <button @click="toggleLang">{{ lang }}</button>
@@ -97,4 +97,9 @@ const userInfo = ref(null)
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.screen {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+</style>
