@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useWebApp, MainButton, Alert } from 'vue-tg'
+import { useWebApp, MainButton, Alert, useWebAppNavigation } from 'vue-tg'
 import { useHoroscope } from './composables/useHoroscope'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { HoroscopeSign } from './types/horoscope'
 
 const { horocope, isLoading, error, getHoroscope, unsetHoroscope } = useHoroscope()
-
+const { initDataUnsafe, initData } = useWebApp()
+const data = useWebAppNavigation()
 const zodiacs = ref<{ name: HoroscopeSign; dateRange: string }[]>([
   { name: 'aries', dateRange: 'March 21 - April 19' }, // Овен
   { name: 'taurus', dateRange: 'April 20 - May 20' }, // Телец
@@ -21,6 +22,8 @@ const zodiacs = ref<{ name: HoroscopeSign; dateRange: string }[]>([
   { name: 'pisces', dateRange: 'February 19 - March 20' } // Рыбы
 ])
 
+const lang = ref(initDataUnsafe.language_code === 'ru' ? 'ru' : 'en')
+
 function testHandle() {
   getHoroscope({
     sign: 'aries',
@@ -30,16 +33,11 @@ function testHandle() {
 
 // Reactivity for user info
 const userInfo = ref(null)
-
-// Function to get user info
-const getUserInfo = () => {
-  const data = useWebApp()
-  console.log(data)
-}
 </script>
 
 <template>
   <div>
+    {{ initDataUnsafe }}
     <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
     <p v-if="userInfo">User ID: {{ userInfo.id }}</p>
     <template v-if="!horocope">

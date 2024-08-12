@@ -37,3 +37,7 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### [Deploy bot](t.me/streem_energy_bot/streem_energy_horoscope)
+
+### [Develop bot](t.me/test_miniapp_tg_bot/short_mini)
