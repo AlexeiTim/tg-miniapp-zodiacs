@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useWebApp, MainButton, Alert, useWebAppNavigation } from 'vue-tg'
+import { useWebApp, MainButton, Alert, useWebAppNavigation, BackButton } from 'vue-tg'
 import { useHoroscope } from './composables/useHoroscope'
 import { onMounted, onUnmounted, ref } from 'vue'
 import type { HoroscopeSign } from './types/horoscope'
@@ -38,9 +38,8 @@ const userInfo = ref(null)
 <template>
   <div>
     {{ initDataUnsafe }}
-    <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
-    <p v-if="userInfo">User ID: {{ userInfo.id }}</p>
     <template v-if="!horocope">
+      <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
       <button
         v-for="zodiac in zodiacs"
         :key="zodiac.name"
@@ -59,7 +58,7 @@ const userInfo = ref(null)
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="error">{{ error }}</div>
       <div v-if="horocope">
-        <button @click="unsetHoroscope">Назад</button>
+        <BackButton @click="unsetHoroscope">Назад</BackButton>
         <div>Horoscope: {{ horocope.horoscope }}</div>
       </div>
     </div>
