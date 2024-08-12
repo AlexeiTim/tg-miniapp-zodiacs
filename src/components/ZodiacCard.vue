@@ -60,5 +60,6 @@ defineProps<{
 .date-range {
   font-size: 14px;
   color: #666;
+  text-wrap: wrap;
 }
 </style>

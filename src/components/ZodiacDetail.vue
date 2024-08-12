@@ -14,7 +14,7 @@ import { BackButton } from 'vue-tg'
 
 defineProps<{
   error: null | any
-  horocope: HoroscopeResponseDetail | null
+  horocope: HoroscopeResponseDetail
 }>()
 
 defineEmits<{

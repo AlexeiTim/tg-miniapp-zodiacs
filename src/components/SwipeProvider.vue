@@ -14,7 +14,7 @@ const emits = defineEmits<{
 const isMobile = ref(window.innerWidth <= 768)
 const startX = ref(0)
 const endX = ref(0)
-const threshold = 50
+const threshold = 100
 
 function startTouch(event: TouchEvent) {
   startX.value = event.touches[0].clientX
@@ -31,6 +31,6 @@ function endTouch(event: TouchEvent) {
 
 <style scoped>
 .screen {
-  min-height: 100vh;
+  min-height: 90vh;
 }
 </style>

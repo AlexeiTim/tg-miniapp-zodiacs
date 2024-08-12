@@ -1,8 +1,8 @@
 <template>
   <BaseContainer>
     <SwipeProvider @right-swipe="goBack">
-      <MainButton color="rgba(0, 0, 0, 0.3)" :text="t('switchLang')" @click="toggleLang" />
-      <ZodiacList v-if="!horoscopeName" @select-zodiac="handleSelectZodica" />
+      <MainButton :text="t('switchLang')" @click="toggleLang" />
+      <ZodiacList v-if="!horocope" @select-zodiac="handleSelectZodica" />
       <ZodiacDetail v-else @go-back="goBack" :error="error" :horocope="horocope" />
       <BaseLoader :is-visible="isLoading" />
     </SwipeProvider>

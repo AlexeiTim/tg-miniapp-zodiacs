@@ -6,4 +6,5 @@
 
 body {
   padding: 5px;
+  background: linear-gradient(135deg, rgba(24, 31, 58, 1) 0%, rgba(18, 18, 61, 1) 100%);
 }
