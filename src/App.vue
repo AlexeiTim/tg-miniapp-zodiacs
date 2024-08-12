@@ -30,10 +30,13 @@ const isMobile = ref(window.innerWidth <= 768)
 
 const lang = ref(initDataUnsafe.language_code === 'ru' ? 'ru' : 'en')
 
+function toggleLang() {
+  lang.value = lang.value === 'ru' ? 'en' : 'ru'
+}
 function testHandle() {
   getHoroscope({
     sign: 'aries',
-    language: 'original'
+    language: lang.value === 'ru' ? 'original' : 'translated'
   })
 }
 
@@ -56,6 +59,7 @@ const userInfo = ref(null)
 <template>
   <div class="max-size-fullscreen">
     {{ startX }} - {{ endX }}
+    <button @click="toggleLang">{{ lang }}</button>
     <template v-if="!horocope">
       <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
       <button
@@ -64,7 +68,7 @@ const userInfo = ref(null)
         @click="
           getHoroscope({
             sign: zodiac.name,
-            language: 'original'
+            language: lang === 'ru' ? 'original' : 'translated'
           })
         "
       >
