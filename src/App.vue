@@ -52,8 +52,8 @@ const userInfo = ref(null)
 </script>
 
 <template>
-  <div>
-    {{ initDataUnsafe }}
+  <div class="max-size-fullscreen">
+    {{ startX }} - {{ endX }}
     <template v-if="!horocope">
       <MainButton color="rgba(0, 0, 0, 0.3)" text="Get User Info" @click="getUserInfo" />
       <button
