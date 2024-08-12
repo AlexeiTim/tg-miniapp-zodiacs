@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { useWebApp, MainButton } from 'vue-tg'
 import { useHoroscope } from './composables/useHoroscope'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { HoroscopeRequestData, HoroscopeSign } from './types/horoscope'
 import BaseLoader from './components/BaseLoader.vue'
@@ -34,22 +34,25 @@ const { initDataUnsafe } = useWebApp()
 const lang = ref(initDataUnsafe.user?.language_code === 'ru' ? 'ru' : 'en')
 const horoscopeName = ref<HoroscopeSign | null>(null)
 
+const language = computed(() => (lang.value === 'ru' ? 'original' : 'translated'))
+
 function handleSelectZodica(zodiac: Zodiac) {
   horoscopeName.value = zodiac.value
   getHoroscope({
     sign: zodiac.value,
-    language: lang.value === 'ru' ? 'original' : 'translated'
+    language: language.value
   })
 }
 
 function toggleLang() {
-  locale.value = locale.value === 'ru' ? 'en' : 'ru'
-  lang.value = lang.value === 'ru' ? 'en' : 'ru'
+  const newLang = locale.value === 'ru' ? 'en' : 'ru'
+  locale.value = newLang
+  lang.value = locale.value
   if (!horoscopeName.value) return
 
   const data: HoroscopeRequestData = {
     sign: horoscopeName.value,
-    language: lang.value === 'ru' ? 'original' : 'translated'
+    language: language.value
   }
   getHoroscope(data)
 }
