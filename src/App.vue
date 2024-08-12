@@ -6,7 +6,7 @@ import type { HoroscopeSign } from './types/horoscope'
 
 const startX = ref(0)
 const endX = ref(0)
-const threshold = 50 // Минимальное расстояние для определения свайпа вправо
+const threshold = -50 // Минимальное расстояние для определения свайпа вправо
 
 const { horocope, isLoading, error, getHoroscope, setHoroscope, unsetHoroscope } = useHoroscope()
 const horoscopeName = ref('')
@@ -65,7 +65,7 @@ function startTouch(event: TouchEvent) {
 function endTouch(event: TouchEvent) {
   endX.value = event.changedTouches[0].clientX
 
-  if (startX.value - endX.value > threshold) {
+  if (startX.value - endX.value < threshold) {
     if (isMobile.value) goBack() // Закрываем описание, если свайп вправо
   }
 }
