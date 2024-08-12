@@ -75,7 +75,7 @@ const userInfo = ref(null)
 </script>
 
 <template>
-  <div @touchstart="startTouch" @touchend="endTouch" class="max-size-fullscreen">
+  <div @touchstart="startTouch" @touchend="endTouch" class="min-h-screen min-w-screen">
     {{ startX }} - {{ endX }}
     {{ initDataUnsafe.user.language_code }}
     <button @click="toggleLang">{{ lang }}</button>
