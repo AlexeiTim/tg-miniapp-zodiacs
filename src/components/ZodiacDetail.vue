@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div v-if="error" class="error">{{ error }}</div>
-    <div v-if="horocope" class="horoscope-content">
+    <div v-if="text" class="horoscope-content">
       <BackButton @click="$emit('go-back')" text="Назад" class="back-button" />
-      <div class="horoscope-text">{{ horocope.horoscope }}</div>
+      <div class="horoscope-text">{{ text }}</div>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ import { BackButton } from 'vue-tg'
 
 defineProps<{
   error: null | any
-  horocope: HoroscopeResponseDetail
+  text: string
 }>()
 
 defineEmits<{

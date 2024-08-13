@@ -1,5 +1,12 @@
 export interface HoroscopeRequestData {
-  sign: HoroscopeSign
+  sign?: HoroscopeSign
+  language: HoroscopeLanguage
+}
+
+export interface HoroscopeResponseList {
+  horoscope: {
+    [key: string]: string
+  }
   language: HoroscopeLanguage
 }
 
