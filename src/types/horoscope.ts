@@ -4,7 +4,7 @@ export interface HoroscopeRequestData {
 }
 
 export interface HoroscopeResponseList {
-  horoscope: {
+  horoscopes: {
     [key: string]: string
   }
   language: HoroscopeLanguage
@@ -28,7 +28,7 @@ export type HoroscopeLanguage = 'original' | 'translated'
 
 export interface HoroscopeResponseDetail {
   language: HoroscopeLanguage
-  horoscope: {
+  horoscopes: {
     aries: string
     taurus: string
     gemini: string

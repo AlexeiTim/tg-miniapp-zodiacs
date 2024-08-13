@@ -1,21 +1,22 @@
 import { HoroscopeSerivce } from '@/services/api/horoscope'
-import type {
-  HoroscopeLanguage,
-  HoroscopeRequestData,
-  HoroscopeResponseDetail,
-  HoroscopeSign
-} from '@/types/horoscope'
+import type { HoroscopeResponseList, HoroscopeSign } from '@/types/horoscope'
+import type { Language } from '@/types/languages'
 import { onMounted, ref, type Ref } from 'vue'
 
 export function useHoroscope(lang: Ref<'ru' | 'en'>) {
   const isLoading = ref(false)
   const error = ref<any>(null)
-  const horocope = ref<HoroscopeResponseDetail | null>(null)
-  const horocopes = ref({
-    ru: {},
-    en: {}
+  const horocopes = ref<Record<Language, HoroscopeResponseList>>({
+    ru: {
+      horoscopes: {},
+      language: 'translated'
+    },
+    en: {
+      horoscopes: {},
+      language: 'translated'
+    }
   })
-  const zodiacInfo = ref('')
+  const zodiac = ref<{ sign: HoroscopeSign; text: string } | null>(null)
 
   async function getAllHoroscopes() {
     isLoading.value = true
@@ -37,30 +38,15 @@ export function useHoroscope(lang: Ref<'ru' | 'en'>) {
     }
   }
 
-  function setHoroscope(horoscopeData: HoroscopeResponseDetail) {
-    horocope.value = horoscopeData
+  function unsetZodiac() {
+    zodiac.value = null
   }
 
-  function set1Horoscope({ sign, lang }: { sign: HoroscopeSign; lang: 'ru' | 'en' }) {
-    const horoscopesLocal = horocopes.value[lang]
-    zodiacInfo.value = horoscopesLocal.horoscopes[sign]
-  }
-
-  function unsetHoroscope() {
-    horocope.value = null
-  }
-
-  async function getHoroscope(data: HoroscopeRequestData) {
-    isLoading.value = true
-    error.value = null
-
-    try {
-      const response = await HoroscopeSerivce.getHoroscope(data)
-      return (horocope.value = response.data)
-    } catch (e) {
-      error.value = e
-    } finally {
-      isLoading.value = false
+  function setZodiac({ sign }: { sign: HoroscopeSign }) {
+    const zodiacText = horocopes.value[lang.value].horoscopes[sign]
+    zodiac.value = {
+      sign,
+      text: zodiacText
     }
   }
 
@@ -69,12 +55,9 @@ export function useHoroscope(lang: Ref<'ru' | 'en'>) {
   })
 
   return {
-    getHoroscope,
-    setHoroscope,
-    unsetHoroscope,
-    set1Horoscope,
-    zodiacInfo,
-    horocope,
+    setZodiac,
+    unsetZodiac,
+    zodiac,
     isLoading,
     error
   }
